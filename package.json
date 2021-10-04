@@ -1,0 +1,53 @@
+{
+    "name": "@relate/types",
+    "version": "1.0.4-alpha.0",
+    "description": "Relate type system",
+    "author": "Neo4j Inc.",
+    "license": "GPL-3.0",
+    "homepage": "https://github.com/neo4j-devtools/relate#readme",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/neo4j-devtools/relate.git"
+    },
+    "publishConfig": {
+        "access": "public"
+    },
+    "main": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "scripts": {
+        "prettify": "prettier --write \"packages/**/*.ts\"",
+        "lint": "eslint . --ext .ts",
+        "prepare": "npm run build:clean",
+        "clean": "rimraf dist",
+        "build": "tsc",
+        "build:clean": "run-s clean build",
+        "start": "tsc -w",
+        "test": "jest",
+        "generate:docs": "typedoc",
+        "add:docs": "git add documentation",
+        "version": "run-s generate:docs add:docs"
+    },
+    "dependencies": {
+        "lodash": "4.17.21"
+    },
+    "devDependencies": {
+        "@types/jest": "27.0.1",
+        "@types/lodash": "4.14.172",
+        "@typescript-eslint/eslint-plugin": "4.32.0",
+        "@typescript-eslint/parser": "4.32.0",
+        "eslint": "7.32.0",
+        "eslint-config-prettier": "8.3.0",
+        "eslint-plugin-jest": "24.5.2",
+        "eslint-plugin-prettier": "4.0.0",
+        "husky": "7.0.2",
+        "jest": "27.1.0",
+        "lint-staged": "11.2.0",
+        "npm-run-all": "^4.1.5",
+        "prettier": "2.4.1",
+        "ts-jest": "27.0.5",
+        "typedoc": "0.17.7",
+        "typedoc-plugin-markdown": "2.3.1",
+        "typedoc-plugin-no-inherit": "1.1.10",
+        "typescript": "4.4.2"
+    }
+}
