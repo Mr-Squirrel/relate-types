@@ -1,13 +1,13 @@
 {
-    "name": "@relate/types",
-    "version": "1.0.4-alpha.0",
-    "description": "Relate type system",
-    "author": "Neo4j Inc.",
+    "name": "@mr-squirrel/relate-types",
+    "version": "1.0.0",
+    "description": "Relate type system a la Squirrel",
+    "author": "Mr Squirrel",
     "license": "GPL-3.0",
-    "homepage": "https://github.com/neo4j-devtools/relate#readme",
+    "homepage": "https://github.com/Mr-Squirrel/relate-types",
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/neo4j-devtools/relate.git"
+        "url": "git@github.com:Mr-Squirrel/relate-types.git"
     },
     "publishConfig": {
         "access": "public"
