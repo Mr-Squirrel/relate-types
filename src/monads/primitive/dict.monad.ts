@@ -1,11 +1,13 @@
 import {assign, entries, merge} from 'lodash';
 
+/* eslint disable */
+
 import List from './list.monad';
 import Maybe from './maybe.monad';
 import {isIterable} from '../../utils/iterable.utils';
 import Num from './num.monad';
 
-type RawDict<K, V> = Map<K, V>;
+type RawDict<K, V> = [K, V];
 
 // @todo: not sure Extract<> is the right approach
 type KeyVal<T, Key extends keyof T = keyof T> = T extends Map<infer K, infer V>
@@ -52,9 +54,9 @@ export default class Dict<T extends any = any, K = KeyVal<T>['key'], V = KeyVal<
     /**
      * @hidden
      */
-    constructor(private readonly ourOriginal: RawDict<K, V>) {
+    constructor(private readonly ourOriginal: Map<K, V>) {
         // @ts-ignore
-        super(ourOriginal);
+        super(ourOriginal.entries());
     }
 
     get keys(): List<K> {
@@ -169,6 +171,17 @@ export default class Dict<T extends any = any, K = KeyVal<T>['key'], V = KeyVal<
     setValue<O = K>(key: O, val: V): Dict<T> {
         // @ts-ignore
         return Dict.from<T>([...this.ourOriginal, [key, val]]);
+    }
+
+    /**
+     * @hidden
+     */
+    partition(predicate: (val: RawDict<K, V>) => boolean): [this, this] {
+        const right = Dict.from(this.filter(predicate));
+        const left = Dict.from(this.filter((v) => !predicate(v)));
+
+        // @ts-ignore
+        return [right, left];
     }
 
     toString(): string {

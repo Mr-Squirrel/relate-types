@@ -251,6 +251,23 @@ export default class List<T> extends Monad<Iterable<T>> {
         return this;
     }
 
+    /**
+     * Map over each item in the List, modifying each value
+     * @param   project   callback invoked for each item
+     * ```ts
+     * const start = List.from([1,2,3])
+     * const end = start.mapEach((v) => v+1);
+     * end.toArray() // [2,3,4]
+     * ```
+     */
+    partition(predicate: (val: T) => boolean): [this, this] {
+        const right = this.filter(predicate);
+        const left = this.filter((v) => !predicate(v));
+
+        // @ts-ignore
+        return [right, left];
+    }
+
     indexOf(val: T): Num {
         const valToUse = Monad.from(val);
         let i = 0;
