@@ -286,23 +286,13 @@ export default class List<T> extends Monad<Iterable<T>> {
     slice(from: Num | number, to?: Num | number): List<T> {
         const fromToUse = Num.from(from);
         const toToUse = to ? Num.from(to) : None.of<Num>();
-        const it = this[Symbol.iterator]();
-        const res = [];
 
-        let current = it.next();
-        let i = 0;
-
-        while (!current.done && (None.isNone(toToUse) || toToUse.greaterThan(i))) {
-            if (fromToUse.lessThanOrEqual(i)) {
-                res.push(current.value);
-            }
-
-            i += 1;
-            current = it.next();
+        if (!to) {
+            return List.from([...this].slice(fromToUse.get()));
         }
 
         // @ts-ignore
-        return List.of([...res]);
+        return List.from([...this].slice(fromToUse.get(), toToUse.get()));
     }
 
     concat<O extends Str<any>>(other: O): List<T | O>;
